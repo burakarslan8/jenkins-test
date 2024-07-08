@@ -8,9 +8,8 @@ pipeline{
     }
     
     stages{
-        stage('CheckVersion'){
+        stage('Welcomer'){
             steps{
-                sh 'alpine -v'
                 echo 'Welcome $name'
             }
         }
