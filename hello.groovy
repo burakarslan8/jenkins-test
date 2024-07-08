@@ -16,5 +16,14 @@ pipeline {
                 }
             }
         }
+        stage('ReadmeChecker'){
+            steps{
+                script{
+                    if(fileExists('README.md')){
+                        echo 'This file exists.'
+                    }
+                }
+            }
+        }
     }
 }
