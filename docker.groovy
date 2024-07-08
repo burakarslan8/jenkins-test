@@ -3,7 +3,7 @@ pipeline{
         docker { image 'alpine'}
     }
     
-    environment {
+    parameters {
         string name: 'name', description: 'Enter your name', defaultValue: 'Burak'
     }
     
