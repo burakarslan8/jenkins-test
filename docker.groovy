@@ -3,9 +3,16 @@ pipeline{
         docker { image 'alpine'}
     }
     
+    environment {
+        string name: 'name', description: 'Enter your name', defaultValue: 'Burak'
+    }
+    
     stages{
         stage('CheckVersion'){
-            sh 'alpine -v'
+            steps{
+                sh 'alpine -v'
+                echo 'Welcome $name'
+            }
         }
     }
 }
