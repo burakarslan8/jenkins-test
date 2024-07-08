@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Welcomer'){
             steps{
-                echo 'Welcome $name'
+                echo Welcome $name
             }
         }
     }
