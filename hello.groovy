@@ -20,7 +20,7 @@ pipeline {
             steps{
                 script{
                     if(fileExists('Makefile')){
-                        sh 'make'
+                        sh 'make -s'
                     }
                     else{
                         echo 'Makefile couldnt be found'
