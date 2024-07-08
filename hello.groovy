@@ -16,11 +16,14 @@ pipeline {
                 }
             }
         }
-        stage('ReadmeChecker'){
+        stage('MakefileChecker'){
             steps{
                 script{
-                    if(fileExists('README.md')){
-                        echo 'This file exists.'
+                    if(fileExists('Makefile')){
+                        sh 'make'
+                    }
+                    else{
+                        echo 'Makefile couldnt be found'
                     }
                 }
             }
