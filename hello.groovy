@@ -29,4 +29,15 @@ pipeline {
             }
         }
     }
+    post{
+        success{
+            echo 'Success'
+        }
+        unstable{
+            echo 'Unstable'
+        }
+        failure{
+            echo 'Failure'
+        }
+    }
 }
