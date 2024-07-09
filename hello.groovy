@@ -36,7 +36,9 @@ pipeline {
     post{
         success{
             echo 'Success'
-            emailext body: "The result is ${TEST_PARAMETER}", recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+            emailext body: "The result is ${TEST_PARAMETER}",
+            subject: 'Test Subject',
+            to: 'burakarslan271@gmail.com'
         }
         unstable{
             echo 'Unstable'
