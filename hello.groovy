@@ -36,9 +36,9 @@ pipeline {
     post{
         success{
             echo 'Success'
-            emailext body: "The result is ${TEST_PARAMETER}",
-            subject: 'Test Subject',
-            to: 'burakarslan271@gmail.com'
+            mail to: 'burakarslan271@gmail.com',
+                subject: "Succeeded Pipeline: ${currentBuild.fullDisplayName}",
+                body: "${env.BUILD_URL}"
         }
         unstable{
             echo 'Unstable'
