@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'TEST_PARAMETER', defaultValue:'0')
+    }
+
     stages {
         stage('Hello') {
             steps {
@@ -32,6 +36,9 @@ pipeline {
     post{
         success{
             echo 'Success'
+            mail    to: 'burak.arslan@tokeninc.com'
+                    subject: 'Jenkins pipeline results'
+                    body: "The output is ${TEST_PARAMETER}"
         }
         unstable{
             echo 'Unstable'
