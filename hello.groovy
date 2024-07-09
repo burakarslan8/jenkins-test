@@ -36,9 +36,7 @@ pipeline {
     post{
         success{
             echo 'Success'
-            mail    to: 'burak.arslan@tokeninc.com',
-                    subject: 'Jenkins pipeline results',
-                    body: "The output is ${TEST_PARAMETER}"
+            emailext body: "The result is ${TEST_PARAMETER}", recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
         unstable{
             echo 'Unstable'
