@@ -1,13 +1,10 @@
-import jakarta.mail.*;
-import java.util.Properties;
-
 pipeline {
     agent any
-    
-    parameters {
-        string(name: 'TEST_PARAMETER', defaultValue:'0')
-        string(name: 'USERNAME')
-        string(name: 'PASSWORD')
+
+    parameters{
+        // both recipient and sender email addresses must be verified in AWS SES
+        string(name: 'recipientEmail', defaultValue: 'example@tokeninc.com')
+        string(name: 'senderEmail', defaultValue: 'example@tokeninc.com')
     }
 
     stages {
@@ -37,31 +34,54 @@ pipeline {
                 }
             }
         }
-        stage('Credentials'){
-            steps{
-                script{
-                    Properties prop = new Properties();
-                    Session session = Session.getInstance(prop, new jakarta.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication("${USERNAME}", "${PASSWORD}");
-                        }
-                    });
-                }
-            }
-        }
     }
+    // email notification
     post{
         success{
-            echo 'Success'
-            mail to: 'burakarslan271@gmail.com',
-                subject: "Succeeded Pipeline: ${currentBuild.fullDisplayName}",
-                body: "${env.BUILD_URL} -- ${TEST_PARAMETER}"
+            script{
+                echo 'Success'
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                print subject
+                mail(
+                    to: "${recipientEmail}",
+                    subject: subject,
+                    body: "The build is successful",
+                    replyTo: "${senderEmail}",
+                    from: "${senderEmail}",
+                )
+                echo 'Email Sent!'
+            }
+            
         }
         unstable{
-            echo 'Unstable'
+            script{
+                echo 'Unstable'
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                print subject
+                mail(
+                    to: "${recipientEmail}",
+                    subject: subject,
+                    body: "The build is unstable",
+                    replyTo: "${senderEmail}",
+                    from: "${senderEmail}",
+                )
+                echo 'Email Sent!'
+            }
         }
         failure{
-            echo 'Failure'
+            script{
+                echo 'Failure'
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                print subject
+                mail(
+                    to: "${recipientEmail}",
+                    subject: subject,
+                    body: "The build has failed",
+                    replyTo: "${senderEmail}",
+                    from: "${senderEmail}",
+                )
+                echo 'Email Sent!'
+            }
         }
     }
 }
