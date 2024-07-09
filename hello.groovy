@@ -36,8 +36,8 @@ pipeline {
     post{
         success{
             echo 'Success'
-            mail    to: 'burak.arslan@tokeninc.com'
-                    subject: 'Jenkins pipeline results'
+            mail    to: 'burak.arslan@tokeninc.com',
+                    subject: 'Jenkins pipeline results',
                     body: "The output is ${TEST_PARAMETER}"
         }
         unstable{
