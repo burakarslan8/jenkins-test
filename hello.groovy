@@ -1,4 +1,5 @@
 import jakarta.mail.*;
+import java.util.Properties;
 
 pipeline {
     agent any
@@ -39,6 +40,7 @@ pipeline {
         stage('Credentials'){
             steps{
                 script{
+                    Properties prop = new Properties();
                     Session session = Session.getInstance(prop, new jakarta.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
                             return new PasswordAuthentication("${USERNAME}", "${PASSWORD}");
