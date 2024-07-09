@@ -1,3 +1,5 @@
+import jakarta.mail.*;
+
 pipeline {
     agent any
     
