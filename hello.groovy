@@ -40,7 +40,9 @@ pipeline {
         success{
             script{
                 echo 'Success'
-                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                // build time before post actions
+                Float buildTime = currentBuild.duration/1000
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${buildTime}s"
                 print subject
                 mail(
                     to: "${recipientEmail}",
@@ -50,13 +52,17 @@ pipeline {
                     from: "${senderEmail}",
                 )
                 echo 'Email Sent!'
+                buildTime = currentBuild.duration/1000
+                echo "Build time including post actions: ${buildTime}s"
             }
             
         }
         unstable{
             script{
                 echo 'Unstable'
-                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                // build time before post actions
+                Float buildTime = currentBuild.duration/1000
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${buildTime}s"
                 print subject
                 mail(
                     to: "${recipientEmail}",
@@ -66,12 +72,16 @@ pipeline {
                     from: "${senderEmail}",
                 )
                 echo 'Email Sent!'
+                buildTime = currentBuild.duration/1000
+                echo "Build time including post actions: ${buildTime}s"
             }
         }
         failure{
             script{
                 echo 'Failure'
-                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${currentBuild.duration}"
+                // build time before post actions
+                Float buildTime = currentBuild.duration/1000
+                def subject = "Pipeline: ${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult} | ${buildTime}s"
                 print subject
                 mail(
                     to: "${recipientEmail}",
@@ -81,6 +91,8 @@ pipeline {
                     from: "${senderEmail}",
                 )
                 echo 'Email Sent!'
+                buildTime = currentBuild.duration/1000
+                echo "Build time including post actions: ${buildTime}s"
             }
         }
     }
