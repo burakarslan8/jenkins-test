@@ -47,10 +47,10 @@ pipeline {
                 Float buildTime = currentBuild.duration/1000
                 if (IS_FAKE == 'false'){
 
-                    sh '''
+                    sh """
                         chmod +x email_notifier.py
                         python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${currentBuild.duration}
-                    '''
+                    """
                     echo 'Email sent!'
                 }
                 else {
@@ -70,10 +70,10 @@ pipeline {
                 Float buildTime = currentBuild.duration/1000
                 if (IS_FAKE == 'false'){
 
-                    sh '''
+                    sh """
                         chmod +x email_notifier.py
                         python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${currentBuild.duration}
-                    '''
+                    """
                     echo 'Email sent!'
                 }
                 else {
