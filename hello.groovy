@@ -50,7 +50,7 @@ pipeline {
                     sh """
                         chmod +x email_notifier.py
                         pip install boto3
-                        python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${currentBuild.duration}
+                        python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${buildTime}
                     """
                     echo 'Email sent!'
                 }
@@ -74,7 +74,7 @@ pipeline {
                     sh """
                         chmod +x email_notifier.py
                         pip install boto3
-                        python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${currentBuild.duration}
+                        python3 email_notifier.py ${senderEmail} ${recipientEmail} ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.currentResult} ${buildTime}
                     """
                     echo 'Email sent!'
                 }
