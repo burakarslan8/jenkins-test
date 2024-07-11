@@ -39,8 +39,6 @@ pipeline {
     // email notification
     post{
         success{
-            // TODO: the script should be in the workspace of the pipeline
-
             script{
                 echo 'Success'
                 // build time before post actions
@@ -63,8 +61,6 @@ pipeline {
             
         }
         failure{
-            // TODO: the script should be in the workspace of the pipeline
-            
             script{
                 echo 'Failure'
                 // build time before post actions
